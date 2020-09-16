@@ -1,26 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import GenerationList from 'src/GenerationList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => (
+      <div className="App">
+        <header>
+          <h1>Le jeu des bâtonnets</h1>
+        </header>
+        <section>
+          <form>
+            Nombre de générations :
+            <input type="number" name="nb-generations" />
+            <input type="submit" value="Simuler" />
+          </form>
+          <GenerationList />
+        </section>
     </div>
-  );
-}
+);
 
 export default App;
