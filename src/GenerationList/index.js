@@ -1,1 +1,1 @@
-export { default } from "./GenerationList"; 
+export { default } from './GenerationListContainer'; 
