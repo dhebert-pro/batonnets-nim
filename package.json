@@ -15,7 +15,9 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
     "react-scripts": "3.4.3",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "dev": "webpack-dev-server --mode=development",
@@ -50,6 +52,7 @@
     "eslint-plugin-react": "^7.20.6",
     "html-webpack-plugin": "^4.4.1",
     "path": "^0.12.7",
+    "redux-devtools-extension": "^2.13.8",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

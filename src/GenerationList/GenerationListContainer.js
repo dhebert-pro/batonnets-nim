@@ -1,39 +1,82 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import GenerationList from './GenerationList';
-
-const initialData = [
-	{ generation: 1, winning: Math.round(Math.random() * 30), losing: Math.round(Math.random() * 30) },
-	{ generation: 2, winning: Math.round(Math.random() * 30), losing: Math.round(Math.random() * 30) },
-	{ generation: 3, winning: Math.round(Math.random() * 30), losing: Math.round(Math.random() * 30) },
-	{ generation: 4, winning: Math.round(Math.random() * 30), losing: Math.round(Math.random() * 30) },
-	{ generation: 5, winning: Math.round(Math.random() * 30), losing: Math.round(Math.random() * 30) },
-	{ generation: 6, winning: Math.round(Math.random() * 30), losing: Math.round(Math.random() * 30) }
-];
+import { fetchGenerationList } from 'src/store/actions/GenerationAction';
+import { addGenerationPool } from 'src/store/actions/GenerationPoolAction';
 
 const columns = [
-	{
-		title: '#',
-		field: 'generation'
-	},
-	{
-		title: 'Victoires',
-		field: 'winning'
-	},
-	{
-		title: 'Défaites',
-		field: 'losing'
-	}
+    {
+        title: '#',
+        field: 'generation'
+    },
+    {
+        title: 'Victoires',
+        field: 'winning'
+    },
+    {
+        title: 'Défaites',
+        field: 'losing'
+    }
 ];
 
 const play = (event, row) => {
-	console.log('PLAY', event.target, row);
+    console.log('PLAY', event.target, row);
 };
 
 const container = () => {
-	const [data] = useState(initialData);
-	return (
-		<GenerationList data={data} columns={columns} onClick={play} />
-	);
+    const [nbGenerations, setNbGenerations] = useState('');
+
+    const generationList = useSelector(state => {
+        return state.generation;
+    });
+    const generationPool = useSelector(state => {
+        return state.generationPool;
+    });
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('useEffect');
+        dispatch(fetchGenerationList());
+    }, [generationPool]);
+
+    const onChangeNbGenerations = event => {
+        event.preventDefault();
+        const value = event.target.value;
+        if (
+            !value || 
+            (
+                !isNaN(value) && 
+                Number.isInteger(parseInt(value))
+            )
+        ) {
+            setNbGenerations(value);
+        }
+    };
+
+    const onGenerate = event => {
+        event.preventDefault();
+        if (
+            nbGenerations && 
+            !isNaN(nbGenerations) && 
+            Number.isInteger(parseInt(nbGenerations))
+        ) {
+            dispatch(addGenerationPool(nbGenerations));
+        } else {
+            alert('Vous devez renseigner un nombre');
+        }
+    };
+
+    return (
+        <GenerationList 
+            data={generationList} 
+            columns={columns}
+            onClick={play}
+            nbGenerations={nbGenerations}
+            onChangeNbGenerations={onChangeNbGenerations}
+            onGenerate={onGenerate}
+        />
+    );
 };
 
 export default container;
