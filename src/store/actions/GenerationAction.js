@@ -14,7 +14,7 @@ export const fetchGenerationList = () => dispatch => {
     return axios
         .get('http://localhost:3000/generations')
         .then(response => {
-            dispatch(fetchGenerationListAction(response.data));
+            return dispatch(fetchGenerationListAction(response.data));
         })
         .catch(error => {
             throw error;

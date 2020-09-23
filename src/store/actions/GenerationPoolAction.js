@@ -16,7 +16,7 @@ export const addGenerationPool = nbGenerations => dispatch => {
             nbGenerations
         })
         .then(response => {
-            dispatch(addGenerationPoolAction(response.data));
+            return dispatch(addGenerationPoolAction(response.data));
         })
         .catch(error => {
             throw error;

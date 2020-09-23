@@ -36,7 +36,6 @@ const container = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('useEffect');
         dispatch(fetchGenerationList());
     }, [generationPool]);
 
@@ -61,7 +60,9 @@ const container = () => {
             !isNaN(nbGenerations) && 
             Number.isInteger(parseInt(nbGenerations))
         ) {
-            dispatch(addGenerationPool(nbGenerations));
+            dispatch(addGenerationPool(nbGenerations)).then(generationPool => {
+                alert(`${generationPool.payload.length} générations créées`);
+            });
         } else {
             alert('Vous devez renseigner un nombre');
         }
