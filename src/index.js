@@ -1,13 +1,14 @@
+import 'core-js';
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from 'src/store/reducers';
+import GlobalStyle from 'src/styles/GlobalStyle';
 
 const middlewares = [thunkMiddleware];
 const middlewareEnhancer = applyMiddleware(...middlewares);
@@ -19,6 +20,7 @@ const store = createStore(rootReducer, {}, composedEnhancers);
 
 ReactDOM.render(
     <Provider store={store}>
+        <GlobalStyle />
         <App />
     </Provider>,
     document.getElementById('root'));

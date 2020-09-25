@@ -1,17 +1,28 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Body = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+`;
+
+const Table = styled.div`
+    flex: 1;
+`;
 
 const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => (
-    <section>
-        <section>
+    <Body>
+        <div>
             <form autoComplete='off' onSubmit={onGenerate}>
                 Nombre de générations :
                 <input type="text" name="nb-generations" value={nbGenerations} onChange={onChangeNbGenerations} />
                 <input type="submit" value="Simuler" />
             </form>
-        </section>
-        <section>
+        </div>
+        <Table>
             <MaterialTable
                 title="Meilleur individu"
                 data={data}
@@ -27,8 +38,11 @@ const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGener
                     actionsColumnIndex: -1
                 }}
             />
-        </section>
-    </section>
+        </Table>
+        <div>
+            Foot
+        </div>
+    </Body>
 );
 
 GenerationList.propTypes = {
