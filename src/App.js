@@ -32,7 +32,7 @@ const App = () => (
         <Header fluid className="p-0">
             <Row className="h-100">
                 <Col lg={{ span: 8, offset: 2 }} className="text-center align-self-center text-uppercase">
-                                    Le jeu des bâtonnets
+                    Le jeu des bâtonnets
                 </Col>
                 <Col lg={2} className="align-self-end d-none d-lg-block">
                     <BackgroundImg src={Sticks} className="float-right" />
