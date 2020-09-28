@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
     }
 
-    body {
+    body, button {
         margin: 0;
         background-color: #DCEDFF;
         color: #000000;

@@ -30,17 +30,17 @@ const Footer = styled.footer`
 const App = () => (
     <Container fluid className="p-0 h-100 d-flex flex-column">
         <Header fluid className="p-0">
-            <Row className="h-100">
-                <Col lg={{ span: 8, offset: 2 }} className="text-center align-self-center text-uppercase">
+            <Row className="h-100 m-0">
+                <Col lg={{ span: 8, offset: 2 }} className="text-center align-self-center text-uppercase p-0">
                     Le jeu des bâtonnets
                 </Col>
-                <Col lg={2} className="align-self-end d-none d-lg-block">
+                <Col lg={2} className="align-self-end d-none d-lg-block p-0">
                     <BackgroundImg src={Sticks} className="float-right" />
                 </Col>
             </Row>
         </Header>
-        <Row className="p-4 flex-grow-1">
-            <Col>
+        <Row className="p-4 flex-grow-1 mx-0">
+            <Col className="p-0">
                 <GenerationList />
             </Col>
         </Row>

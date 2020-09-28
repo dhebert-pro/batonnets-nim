@@ -1,48 +1,60 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import styled from 'styled-components';
 
-const Body = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-`;
-
-const Table = styled.div`
-    flex: 1;
+const BtnEnvoi = styled(Button)`
+    background-color: #00346B;
+    border: #00346B;
 `;
 
 const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => (
-    <Body>
-        <div>
-            <form autoComplete='off' onSubmit={onGenerate}>
-                Nombre de générations :
-                <input type="text" name="nb-generations" value={nbGenerations} onChange={onChangeNbGenerations} />
-                <input type="submit" value="Simuler" />
-            </form>
-        </div>
-        <Table>
-            <MaterialTable
-                title="Meilleur individu"
-                data={data}
-                columns={columns}
-                actions={[
-                    {
-                        icon: 'casino',
-                        tooltip: 'Tester',
-                        onClick
-                    }
-                ]}
-                options={{
-                    actionsColumnIndex: -1
-                }}
-            />
-        </Table>
-        <div>
-            Foot
-        </div>
-    </Body>
+    <Container>
+        <Row className="mb-4 mx-0">
+            <Col className="p-0">
+                <Form className="justify-content-center" inline onSubmit={onGenerate} autocomplete="off">
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label className="mr-2">Nombre de générations</Form.Label>
+                        <Form.Control 
+                            className="mr-2" 
+                            placeholder="Entrez un nombre" 
+                            name="nb-generations" 
+                            value={nbGenerations} 
+                            onChange={onChangeNbGenerations}
+                        />
+                    </Form.Group>
+
+                    <BtnEnvoi variant="primary" type="submit">
+                        Simuler
+                    </BtnEnvoi>
+                </Form>
+            </Col>
+        </Row>
+        <Row className="mx-0">
+            <Col className="p-0">
+                <MaterialTable
+                    title="Meilleur individu"
+                    data={data}
+                    columns={columns}
+                    actions={[
+                        {
+                            icon: 'casino',
+                            tooltip: 'Tester',
+                            onClick
+                        }
+                    ]}
+                    options={{
+                        actionsColumnIndex: -1
+                    }}
+                />
+            </Col>
+        </Row>
+    </Container>
 );
 
 GenerationList.propTypes = {
