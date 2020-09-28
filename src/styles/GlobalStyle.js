@@ -32,10 +32,17 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Moon Regular', arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        letter-spacing: .1rem;
+        letter-spacing: .1rem !important;
     }
 
-    button, .MuiTableCell-root {
+    .MuiTypography-root, .MuiTableCell-root, .MuiInputBase-root, .MuiMenuItem-root, input::placeholder {
+        font-family: 'Moon Regular', arial, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: .1rem !important;
+    }
+
+    button {
         letter-spacing: .1rem !important;
     }
 
