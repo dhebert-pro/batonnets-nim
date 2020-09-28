@@ -57,7 +57,9 @@
     "html-webpack-plugin": "^4.4.1",
     "path": "^0.12.7",
     "redux-devtools-extension": "^2.13.8",
-    "webpack": "^4.44.1",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }

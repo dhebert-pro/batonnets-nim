@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
     }
 
-    body, button {
+    body {
         margin: 0;
         background-color: #DCEDFF;
         color: #000000;
@@ -33,6 +33,10 @@ const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         letter-spacing: .1rem;
+    }
+
+    button, .MuiTableCell-root {
+        letter-spacing: .1rem !important;
     }
 
     #root {

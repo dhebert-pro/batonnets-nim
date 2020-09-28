@@ -6,12 +6,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import styled from 'styled-components';
-
-const BtnEnvoi = styled(Button)`
-    background-color: #00346B;
-    border: #00346B;
-`;
 
 const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => (
     <Container>
@@ -29,9 +23,9 @@ const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGener
                         />
                     </Form.Group>
 
-                    <BtnEnvoi variant="primary" type="submit">
+                    <Button variant="primary" type="submit">
                         Simuler
-                    </BtnEnvoi>
+                    </Button>
                 </Form>
             </Col>
         </Row>
