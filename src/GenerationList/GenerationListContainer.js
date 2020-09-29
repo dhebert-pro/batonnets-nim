@@ -61,7 +61,7 @@ const container = () => {
             Number.isInteger(parseInt(nbGenerations))
         ) {
             dispatch(addGenerationPool(nbGenerations)).then(generationPool => {
-                alert(`${generationPool.payload.length} générations créées`);
+                alert(`${generationPool.payload.count} générations dans la base`);
             });
         } else {
             alert('Vous devez renseigner un nombre');

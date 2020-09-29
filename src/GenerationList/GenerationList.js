@@ -11,7 +11,7 @@ const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGener
     <Container>
         <Row className="mb-4 mx-0">
             <Col className="p-0">
-                <Form className="justify-content-center" inline onSubmit={onGenerate} autocomplete="off">
+                <Form className="justify-content-center" inline onSubmit={onGenerate} autoComplete="off">
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label className="mr-2">Nombre de générations</Form.Label>
                         <Form.Control 
