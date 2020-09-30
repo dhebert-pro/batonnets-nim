@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import GenerationReducer from './GenerationReducer';
-import GenerationPoolReducer from './GenerationPoolReducer';
+import GameReducer from './GameReducer';
 
 export default combineReducers({
     generation: GenerationReducer,
-    generationPool: GenerationPoolReducer
+    game: GameReducer
 });

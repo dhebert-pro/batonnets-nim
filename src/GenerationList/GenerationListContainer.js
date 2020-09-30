@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GenerationList from './GenerationList';
 import { fetchGenerationList } from 'src/store/actions/GenerationAction';
-import { addGenerationPool } from 'src/store/actions/GenerationPoolAction';
+import { addGame } from 'src/store/actions/GameAction';
 
 const columns = [
     {
@@ -29,15 +29,15 @@ const container = () => {
     const generationList = useSelector(state => {
         return state.generation;
     });
-    const generationPool = useSelector(state => {
-        return state.generationPool;
+    const game = useSelector(state => {
+        return state.game;
     });
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchGenerationList());
-    }, [generationPool]);
+    }, [game]);
 
     const onChangeNbGenerations = event => {
         event.preventDefault();
@@ -60,8 +60,8 @@ const container = () => {
             !isNaN(nbGenerations) && 
             Number.isInteger(parseInt(nbGenerations))
         ) {
-            dispatch(addGenerationPool(nbGenerations)).then(generationPool => {
-                alert(`${generationPool.payload.count} générations dans la base`);
+            dispatch(addGame(nbGenerations)).then(game => {
+                alert(`${game.payload.count} générations dans la base`);
             });
         } else {
             alert('Vous devez renseigner un nombre');

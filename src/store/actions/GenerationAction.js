@@ -15,9 +15,6 @@ export const fetchGenerationList = () => dispatch => {
         .get('http://localhost:3000/generations')
         .then(response => {
             return dispatch(fetchGenerationListAction(response.data));
-        })
-        .catch(error => {
-            throw error;
         });
 
 };
