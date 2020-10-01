@@ -1,4 +1,5 @@
 import React from 'react';
+import AlertMessage from 'src/AlertMessage';
 import GenerationList from 'src/GenerationList';
 import styled from 'styled-components';
 import Sticks from 'src/assets/sticks.svg';
@@ -39,6 +40,7 @@ const App = () => (
                 </Col>
             </Row>
         </Header>
+        <AlertMessage />
         <Row className="p-4 flex-grow-1 mx-0">
             <Col className="p-0">
                 <GenerationList />

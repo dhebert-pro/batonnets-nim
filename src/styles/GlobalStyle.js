@@ -46,6 +46,10 @@ const GlobalStyle = createGlobalStyle`
         ${letterSpacingSmall};
     }
 
+    .close {
+        font-family: arial, sans-serif;
+    }
+
     #root {
         height: 100%;
     }

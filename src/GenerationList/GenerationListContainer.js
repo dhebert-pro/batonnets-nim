@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import GenerationList from './GenerationList';
 import { fetchGenerationList } from 'src/store/actions/GenerationAction';
 import { addGame } from 'src/store/actions/GameAction';
+import { setAlert } from 'src/store/actions/ControlAction';
 
 const columns = [
     {
@@ -23,7 +24,7 @@ const play = (event, row) => {
     console.log('PLAY', event.target, row);
 };
 
-const container = () => {
+const GenerationListContainer = () => {
     const [nbGenerations, setNbGenerations] = useState('');
 
     const generationList = useSelector(state => {
@@ -61,10 +62,16 @@ const container = () => {
             Number.isInteger(parseInt(nbGenerations))
         ) {
             dispatch(addGame(nbGenerations)).then(game => {
-                alert(`${game.payload.count} générations dans la base`);
+                dispatch(setAlert({
+                    'type': 'success',
+                    'message': `${game.payload.count} générations dans la base`
+                }));
             });
         } else {
-            alert('Vous devez renseigner un nombre');
+            dispatch(setAlert({
+                'type': 'warning',
+                'message': 'Vous devez renseigner un nombre'
+            }));
         }
     };
 
@@ -80,4 +87,4 @@ const container = () => {
     );
 };
 
-export default container;
+export default GenerationListContainer;
