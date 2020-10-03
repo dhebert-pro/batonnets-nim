@@ -3,22 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import GenerationList from './GenerationList';
 import { fetchGenerationList } from 'src/store/actions/GenerationAction';
 import { addGame } from 'src/store/actions/GameAction';
-import { setAlert } from 'src/store/actions/ControlAction';
-
-const columns = [
-    {
-        title: '#',
-        field: 'generation'
-    },
-    {
-        title: 'Victoires',
-        field: 'winning'
-    },
-    {
-        title: 'Défaites',
-        field: 'losing'
-    }
-];
+import { launchAction } from 'src/util/reduxUtil';
+import { showSuccess, showWarning } from '../util/alertUtil';
 
 const play = (event, row) => {
     console.log('PLAY', event.target, row);
@@ -37,7 +23,7 @@ const GenerationListContainer = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchGenerationList());
+        launchAction(dispatch, fetchGenerationList());
     }, [game]);
 
     const onChangeNbGenerations = event => {
@@ -61,24 +47,17 @@ const GenerationListContainer = () => {
             !isNaN(nbGenerations) && 
             Number.isInteger(parseInt(nbGenerations))
         ) {
-            dispatch(addGame(nbGenerations)).then(game => {
-                dispatch(setAlert({
-                    'type': 'success',
-                    'message': `${game.payload.count} générations dans la base`
-                }));
+            launchAction(dispatch, addGame(nbGenerations), game => {
+                showSuccess(dispatch, `${game.payload.count} générations dans la base`);
             });
         } else {
-            dispatch(setAlert({
-                'type': 'warning',
-                'message': 'Vous devez renseigner un nombre'
-            }));
+            showWarning(dispatch, 'Vous devez renseigner un nombre');
         }
     };
 
     return (
         <GenerationList 
-            data={generationList} 
-            columns={columns}
+            data={generationList}
             onClick={play}
             nbGenerations={nbGenerations}
             onChangeNbGenerations={onChangeNbGenerations}

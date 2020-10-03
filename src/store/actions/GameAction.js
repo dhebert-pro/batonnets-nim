@@ -17,6 +17,8 @@ export const addGame = nbGenerations => dispatch => {
         })
         .then(response => {
             return dispatch(addGameAction(response.data));
+        }).catch(err => {
+            throw err.response.data;
         });
 
 };

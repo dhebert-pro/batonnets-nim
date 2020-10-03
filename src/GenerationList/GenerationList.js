@@ -7,7 +7,44 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => (
+const columns = [
+    {
+        'title': '#',
+        'field': 'generation'
+    },
+    {
+        'title': 'Victoires',
+        'field': 'winning'
+    },
+    {
+        'title': 'Défaites',
+        'field': 'losing'
+    }
+];
+
+const localization = {
+    'body': {
+        'emptyDataSourceMessage': 'Aucun enregistrement à afficher'
+    },
+    'pagination': {
+        'labelDisplayedRows': '{from}-{to} sur {count}',
+        'labelRowsSelect': 'lignes',
+        'firstAriaLabel': 'Première page',
+        'firstTooltip': 'Première page',
+        'previousAriaLabel': 'Page précédente',
+        'previousTooltip': 'Page précédente',
+        'nextAriaLabel': 'Page suivante',
+        'nextTooltip': 'Page suivante',
+        'lastAriaLabel': 'Dernière page',
+        'lastTooltip': 'Dernière page'
+    },
+    'toolbar': {
+        'searchTooltip': 'Rechercher',
+        'searchPlaceholder': 'Rechercher'
+    }
+};
+
+const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => (
     <Container>
         <Row className="mb-4 mx-0">
             <Col className="p-0">
@@ -35,6 +72,7 @@ const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGener
                     title="Meilleur individu"
                     data={data}
                     columns={columns}
+                    localization={localization}
                     actions={[
                         {
                             icon: 'casino',
@@ -53,7 +91,6 @@ const GenerationList = ({ data, columns, onClick, nbGenerations, onChangeNbGener
 
 GenerationList.propTypes = {
     data: PropTypes.array.isRequired,
-    columns: PropTypes.array.isRequired,
     onClick: PropTypes.func.isRequired,
     nbGenerations: PropTypes.string.isRequired,
     onChangeNbGenerations: PropTypes.func.isRequired,
