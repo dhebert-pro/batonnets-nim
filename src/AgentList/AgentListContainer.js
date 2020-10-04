@@ -17,7 +17,7 @@ const AgentListContainer = () => {
 
     useEffect(() => {
         launchAction(dispatch, fetchAgentList());
-    });
+    }, []);
 
     return (
         <AgentList

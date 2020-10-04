@@ -16,15 +16,12 @@ const GenerationListContainer = () => {
     const generationList = useSelector(state => {
         return state.generation;
     });
-    const game = useSelector(state => {
-        return state.game;
-    });
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         launchAction(dispatch, fetchGenerationList());
-    }, [game]);
+    }, []);
 
     const onChangeNbGenerations = event => {
         event.preventDefault();

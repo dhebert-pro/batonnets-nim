@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 const columns = [
     {
         'title': 'Nom',
-        'field': 'name'
+        'field': 'shortName'
     },
     {
         'title': 'Victoires',
@@ -54,30 +54,40 @@ const localization = {
     }
 };
 
-const AgentList = ({ data, onClick }) => (
-    <Container>
-        <Row className="mx-0">
-            <Col className="p-0">
-                <MaterialTable
-                    title="Liste des agents"
-                    data={data}
-                    columns={columns}
-                    localization={localization}
-                    actions={[
-                        {
-                            icon: 'casino',
-                            tooltip: 'Tester',
-                            onClick
-                        }
-                    ]}
-                    options={{
-                        actionsColumnIndex: -1
-                    }}
-                />
-            </Col>
-        </Row>
-    </Container>
-);
+const AgentList = ({ data, onClick }) => {
+    const displayedData = data.map(row => ({
+        ...row,
+        'shortName': `AG-${row.name.substring(0, 4)}`,
+        'nbLayers': row.neurons.length,
+        'nbNeurons': row.neurons.map(layer => layer.length).reduce((a, b) => a + b, 0),
+        'winning': row.winning || '0',
+        'losing': row.losing || '0'
+    }));
+    return (
+        <Container>
+            <Row className="mx-0">
+                <Col className="p-0">
+                    <MaterialTable
+                        title="Liste des agents"
+                        data={displayedData}
+                        columns={columns}
+                        localization={localization}
+                        actions={[
+                            {
+                                icon: 'casino',
+                                tooltip: 'Tester',
+                                onClick
+                            }
+                        ]}
+                        options={{
+                            actionsColumnIndex: -1
+                        }}
+                    />
+                </Col>
+            </Row>
+        </Container>
+    );
+};
 
 AgentList.propTypes = {
     data: PropTypes.array.isRequired,
