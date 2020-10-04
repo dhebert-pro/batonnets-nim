@@ -12,7 +12,7 @@ export const fetchAgentListAction = agentList => {
 export const fetchAgentList = () => dispatch => {
 
     return axios
-        .get('http://localhost:3000/agents')
+        .get('/agents')
         .then(response => {
             return dispatch(fetchAgentListAction(response.data));
         }).catch(err => {

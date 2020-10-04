@@ -13,6 +13,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from 'src/store/reducers';
 import GlobalStyle from 'src/styles/GlobalStyle';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.headers.get['Accept'] = 'application/json';
+axios.defaults.headers.post['Accept'] = 'application/json';
 
 const middlewares = [thunkMiddleware];
 const middlewareEnhancer = applyMiddleware(...middlewares);

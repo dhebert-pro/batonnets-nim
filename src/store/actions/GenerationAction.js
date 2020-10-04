@@ -12,7 +12,7 @@ export const fetchGenerationListAction = generationList => {
 export const fetchGenerationList = () => dispatch => {
 
     return axios
-        .get('http://localhost:3000/generations')
+        .get('/generations')
         .then(response => {
             return dispatch(fetchGenerationListAction(response.data));
         }).catch(err => {

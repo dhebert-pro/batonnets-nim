@@ -12,7 +12,7 @@ export const addGameAction = payload => {
 export const addGame = nbGenerations => dispatch => {
 
     return axios
-        .post('http://localhost:3000/game', {
+        .post('/game', {
             nbGenerations
         })
         .then(response => {
