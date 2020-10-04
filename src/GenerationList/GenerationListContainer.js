@@ -21,7 +21,7 @@ const GenerationListContainer = () => {
 
     useEffect(() => {
         launchAction(dispatch, fetchGenerationList());
-    });
+    }, []);
 
     const onChangeNbGenerations = event => {
         event.preventDefault();
