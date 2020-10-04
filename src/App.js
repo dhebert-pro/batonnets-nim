@@ -1,11 +1,15 @@
 import React from 'react';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import AlertMessage from 'src/AlertMessage';
 import GenerationList from 'src/GenerationList';
+import AgentList from 'src/AgentList';
 import styled from 'styled-components';
 import Sticks from 'src/assets/sticks.svg';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 const Header = styled(Container)`
     font-size: 2em;
@@ -40,10 +44,26 @@ const App = () => (
                 </Col>
             </Row>
         </Header>
+        <Navbar bg="dark" variant="dark">
+            <Nav>
+                <Nav.Link as={NavLink} to="/generations">Générations</Nav.Link>
+                <Nav.Link as={NavLink} to="/agents">Agents</Nav.Link>
+            </Nav>
+        </Navbar>
         <AlertMessage />
         <Row className="p-4 flex-grow-1 mx-0">
             <Col className="p-0">
-                <GenerationList />
+                <Switch>
+                    <Route path="/generations">
+                        <GenerationList />
+                    </Route>
+                    <Route path="/agents">
+                        <AgentList />
+                    </Route>
+                    <Route path="/">
+                        <Redirect to="/generations"/>
+                    </Route>
+                </Switch>
             </Col>
         </Row>
         <Footer className="text-center">

@@ -1,5 +1,8 @@
 import 'core-js';
 import React from 'react';
+import {
+    BrowserRouter as Router,
+} from 'react-router-dom';
 import 'src/assets/styles/custom.scss';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -21,8 +24,10 @@ const store = createStore(rootReducer, {}, composedEnhancers);
 
 ReactDOM.render(
     <Provider store={store}>
-        <GlobalStyle />
-        <App />
+        <Router>
+            <GlobalStyle />
+            <App />
+        </Router>
     </Provider>,
     document.getElementById('root'));
 

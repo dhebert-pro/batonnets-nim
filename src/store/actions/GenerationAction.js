@@ -16,7 +16,7 @@ export const fetchGenerationList = () => dispatch => {
         .then(response => {
             return dispatch(fetchGenerationListAction(response.data));
         }).catch(err => {
-            throw err.response.data;
+            throw err.response.data || err.response || err;
         });
 
 };

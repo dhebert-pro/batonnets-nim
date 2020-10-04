@@ -4,7 +4,7 @@ import GenerationList from './GenerationList';
 import { fetchGenerationList } from 'src/store/actions/GenerationAction';
 import { addGame } from 'src/store/actions/GameAction';
 import { launchAction } from 'src/util/reduxUtil';
-import { showSuccess, showWarning } from '../util/alertUtil';
+import { showSuccess, showWarning } from 'src/util/alertUtil';
 
 const play = (event, row) => {
     console.log('PLAY', event.target, row);
