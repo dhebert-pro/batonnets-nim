@@ -13,6 +13,10 @@ const columns = [
         'field': 'generation'
     },
     {
+        'title': 'Gagnant',
+        'field': 'winner'
+    },
+    {
         'title': 'Victoires',
         'field': 'winning'
     },
@@ -44,50 +48,58 @@ const localization = {
     }
 };
 
-const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => (
-    <Container>
-        <Row className="mb-4 mx-0">
-            <Col className="p-0">
-                <Form className="justify-content-center" inline onSubmit={onGenerate} autoComplete="off">
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label className="mr-2">Nombre de générations</Form.Label>
-                        <Form.Control 
-                            className="mr-2" 
-                            placeholder="Entrez un nombre" 
-                            name="nb-generations" 
-                            value={nbGenerations} 
-                            onChange={onChangeNbGenerations}
-                        />
-                    </Form.Group>
+const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => {
+    const displayedData = data.map(row => ({
+        ...row,
+        'winner': `AG-${row.winner.name.substring(0, 4)}`,
+        'winning': row.winner.winning || '0',
+        'losing': row.winner.losing || '0'
+    }));
+    return (
+        <Container>
+            <Row className="mb-4 mx-0">
+                <Col className="p-0">
+                    <Form className="justify-content-center" inline onSubmit={onGenerate} autoComplete="off">
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label className="mr-2">Nombre de générations</Form.Label>
+                            <Form.Control 
+                                className="mr-2" 
+                                placeholder="Entrez un nombre" 
+                                name="nb-generations" 
+                                value={nbGenerations} 
+                                onChange={onChangeNbGenerations}
+                            />
+                        </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                        Simuler
-                    </Button>
-                </Form>
-            </Col>
-        </Row>
-        <Row className="mx-0">
-            <Col className="p-0">
-                <MaterialTable
-                    title="Meilleur individu"
-                    data={data}
-                    columns={columns}
-                    localization={localization}
-                    actions={[
-                        {
-                            icon: 'casino',
-                            tooltip: 'Tester',
-                            onClick
-                        }
-                    ]}
-                    options={{
-                        actionsColumnIndex: -1
-                    }}
-                />
-            </Col>
-        </Row>
-    </Container>
-);
+                        <Button variant="primary" type="submit">
+                            Simuler
+                        </Button>
+                    </Form>
+                </Col>
+            </Row>
+            <Row className="mx-0">
+                <Col className="p-0">
+                    <MaterialTable
+                        title="Meilleur individu"
+                        data={displayedData}
+                        columns={columns}
+                        localization={localization}
+                        actions={[
+                            {
+                                icon: 'casino',
+                                tooltip: 'Tester',
+                                onClick
+                            }
+                        ]}
+                        options={{
+                            actionsColumnIndex: -1
+                        }}
+                    />
+                </Col>
+            </Row>
+        </Container>
+    );
+};
 
 GenerationList.propTypes = {
     data: PropTypes.array.isRequired,

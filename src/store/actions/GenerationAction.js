@@ -12,7 +12,7 @@ export const fetchGenerationListAction = generationList => {
 export const fetchGenerationList = () => dispatch => {
 
     return axios
-        .get('/generations')
+        .get('/generations?filter=withWinner')
         .then(response => {
             return dispatch(fetchGenerationListAction(response.data));
         }).catch(err => {
