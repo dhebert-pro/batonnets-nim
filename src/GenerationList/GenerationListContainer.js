@@ -21,7 +21,7 @@ const GenerationListContainer = () => {
 
     useEffect(() => {
         launchAction(dispatch, fetchGenerationList());
-    }, []);
+    });
 
     const onChangeNbGenerations = event => {
         event.preventDefault();
@@ -46,6 +46,7 @@ const GenerationListContainer = () => {
         ) {
             launchAction(dispatch, addGame(nbGenerations), game => {
                 showSuccess(dispatch, `${game.payload.count} générations dans la base`);
+                launchAction(dispatch, fetchGenerationList());
             });
         } else {
             showWarning(dispatch, 'Vous devez renseigner un nombre');

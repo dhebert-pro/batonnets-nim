@@ -12,7 +12,8 @@ const columns = [
     },
     {
         'title': 'Victoires',
-        'field': 'winning'
+        'field': 'winning',
+        'defaultSort': 'desc'
     },
     {
         'title': 'Défaites',
