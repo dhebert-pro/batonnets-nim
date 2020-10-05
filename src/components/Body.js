@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import AppRoutes from 'src/components/AppRoutes';
 
 const Body = () => (
-    <Row className="p-4 flex-grow-1 mx-0">
+    <Row className="p-3 flex-grow-1 mx-0">
         <Col className="p-0">
             <AppRoutes />
         </Col>
