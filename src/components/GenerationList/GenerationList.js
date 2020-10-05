@@ -1,66 +1,73 @@
+/* eslint-disable react/display-name */
 import React from 'react';
-import MaterialTable from 'material-table';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import DataTable from 'src/components/DataTable';
 
-const columns = [
-    {
-        'title': '#',
-        'field': 'generation'
-    },
-    {
-        'title': 'Gagnant',
-        'field': 'winner'
-    },
-    {
-        'title': 'Victoires',
-        'field': 'winning'
-    },
-    {
-        'title': 'Défaites',
-        'field': 'losing'
+const generationColumn = {
+    'title': 'Numéro',
+    'field': 'generation'
+};
+
+const columnsBase = [
+    {...generationColumn,
+        'render': rowData => (
+            <OverlayTrigger
+                placement='top'
+                overlay={
+                    <Tooltip>
+                        <div><strong>Gagnant : </strong>{rowData.winner.name}</div>
+                        <div><strong>Victoires : </strong>{rowData.winner.winning}</div>
+                        <div><strong>Défaites : </strong>{rowData.winner.losing}</div>
+                    </Tooltip>
+                }
+            >
+                <span>{rowData.generation}</span>
+            </OverlayTrigger>
+        )
     }
 ];
 
-const localization = {
-    'body': {
-        'emptyDataSourceMessage': 'Aucun enregistrement à afficher'
+const columns = [
+    {...generationColumn},
+    {
+        'title': 'Gagnant',
+        'render': rowData => (
+            <OverlayTrigger
+                placement='top'
+                overlay={
+                    <Tooltip>
+                        {rowData.winner.name}
+                    </Tooltip>
+                }
+            >
+                <span>AG-{rowData.winner.name.substring(0, 4)}</span>
+            </OverlayTrigger>
+        )
     },
-    'pagination': {
-        'labelDisplayedRows': '{from}-{to} sur {count}',
-        'labelRowsSelect': 'lignes',
-        'firstAriaLabel': 'Première page',
-        'firstTooltip': 'Première page',
-        'previousAriaLabel': 'Page précédente',
-        'previousTooltip': 'Page précédente',
-        'nextAriaLabel': 'Page suivante',
-        'nextTooltip': 'Page suivante',
-        'lastAriaLabel': 'Dernière page',
-        'lastTooltip': 'Dernière page'
+    {
+        'title': 'Victoires',
+        'field': 'winner.winning'
     },
-    'toolbar': {
-        'searchTooltip': 'Rechercher',
-        'searchPlaceholder': 'Rechercher'
+    {
+        'title': 'Défaites',
+        'field': 'winner.losing'
     }
-};
+];
 
 const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => {
-    const displayedData = data.map(row => ({
-        ...row,
-        'winner': `AG-${row.winner.name.substring(0, 4)}`,
-        'winning': row.winner.winning || '0',
-        'losing': row.winner.losing || '0'
-    }));
     return (
         <Container>
             <Row className="mb-4 mx-0">
                 <Col className="p-0">
-                    <Form className="justify-content-center" inline onSubmit={onGenerate} autoComplete="off">
-                        <Form.Group controlId="formBasicEmail">
+                    <Form inline className="justify-content-center" onSubmit={onGenerate} autoComplete="off">
+                        <Form.Group>
                             <Form.Label className="mr-2">Nombre de générations</Form.Label>
                             <Form.Control 
                                 className="mr-2" 
@@ -70,20 +77,18 @@ const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, o
                                 onChange={onChangeNbGenerations}
                             />
                         </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Simuler
+                        <Button className="m-2" variant="primary" type="submit">
+                                Simuler
                         </Button>
                     </Form>
                 </Col>
             </Row>
-            <Row className="mx-0">
+            <Row className="mx-0 d-none d-md-block">
                 <Col className="p-0">
-                    <MaterialTable
+                    <DataTable
                         title="Meilleur individu"
-                        data={displayedData}
+                        data={data}
                         columns={columns}
-                        localization={localization}
                         actions={[
                             {
                                 icon: 'casino',
@@ -93,6 +98,26 @@ const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, o
                         ]}
                         options={{
                             actionsColumnIndex: -1
+                        }}
+                    />
+                </Col>
+            </Row>
+            <Row className="mx-0 d-block d-md-none">
+                <Col className="p-0">
+                    <DataTable
+                        title="Meilleur individu"
+                        data={data}
+                        columns={columnsBase}
+                        actions={[
+                            {
+                                icon: 'casino',
+                                tooltip: 'Tester',
+                                onClick
+                            }
+                        ]}
+                        options={{
+                            actionsColumnIndex: -1,
+                            search: false
                         }}
                     />
                 </Col>

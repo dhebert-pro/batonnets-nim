@@ -1,78 +1,81 @@
+/* eslint-disable react/display-name */
 import React from 'react';
-import MaterialTable from 'material-table';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import DataTable from 'src/components/DataTable';
+
+const nameColumn = {
+    'title': 'Nom',
+    'field': 'name'
+};
+
+const generationColumn = {
+    'title': 'Génération',
+    'field': 'generation'
+};
+
+const winningColumn = {
+    'title': 'Victoires',
+    'field': 'winning',
+    'defaultSort': 'desc'
+};
+
+const columnsBase = [
+    {...nameColumn,
+        'render': rowData => (
+            <OverlayTrigger
+                placement='top'
+                overlay={
+                    <Tooltip>
+                        <div><strong>Nom : </strong>{rowData.name}</div>
+                        <div><strong>Victoires : </strong>{rowData.winning}</div>
+                        <div><strong>Défaites : </strong>{rowData.losing}</div>
+                        <div><strong>Neurones : </strong>{rowData.neurons.map(layer => layer.length).reduce((a, b) => a + b, 0)}</div>
+                        <div><strong>Couches : </strong>{rowData.neurons.length}</div>
+                    </Tooltip>
+                }
+            >
+                <span>{rowData.name.substring(0, 4)}</span>
+            </OverlayTrigger>
+        )
+    },
+    {...winningColumn, 'hidden': true},
+    {...generationColumn}
+];
 
 const columns = [
-    {
-        'title': 'Nom',
-        'field': 'shortName'
+    {...nameColumn,
+        'render': rowData => rowData.name.substring(0, 4)
     },
-    {
-        'title': 'Victoires',
-        'field': 'winning',
-        'defaultSort': 'desc'
-    },
+    {...winningColumn},
     {
         'title': 'Défaites',
         'field': 'losing'
     },
     {
         'title': 'Neurones',
-        'field': 'nbNeurons'
+        'render': rowData => rowData.neurons.map(layer => layer.length).reduce((a, b) => a + b, 0)
     },
     {
         'title': 'Couches',
-        'field': 'nbLayers'
+        'field': 'neurons.length'
     },
-    {
-        'title': 'Génération',
-        'field': 'generation'
-    }
+    {...generationColumn}
 ];
 
-const localization = {
-    'body': {
-        'emptyDataSourceMessage': 'Aucun enregistrement à afficher'
-    },
-    'pagination': {
-        'labelDisplayedRows': '{from}-{to} sur {count}',
-        'labelRowsSelect': 'lignes',
-        'firstAriaLabel': 'Première page',
-        'firstTooltip': 'Première page',
-        'previousAriaLabel': 'Page précédente',
-        'previousTooltip': 'Page précédente',
-        'nextAriaLabel': 'Page suivante',
-        'nextTooltip': 'Page suivante',
-        'lastAriaLabel': 'Dernière page',
-        'lastTooltip': 'Dernière page'
-    },
-    'toolbar': {
-        'searchTooltip': 'Rechercher',
-        'searchPlaceholder': 'Rechercher'
-    }
-};
-
 const AgentList = ({ data, onClick }) => {
-    const displayedData = data.map(row => ({
-        ...row,
-        'shortName': `AG-${row.name.substring(0, 4)}`,
-        'nbLayers': row.neurons.length,
-        'nbNeurons': row.neurons.map(layer => layer.length).reduce((a, b) => a + b, 0),
-        'winning': row.winning || '0',
-        'losing': row.losing || '0'
-    }));
     return (
         <Container>
-            <Row className="mx-0">
+            <Row className="mx-0 d-none d-md-block">
                 <Col className="p-0">
-                    <MaterialTable
+                    <DataTable
                         title="Liste des agents"
-                        data={displayedData}
+                        data={data}
                         columns={columns}
-                        localization={localization}
                         actions={[
                             {
                                 icon: 'casino',
@@ -82,6 +85,26 @@ const AgentList = ({ data, onClick }) => {
                         ]}
                         options={{
                             actionsColumnIndex: -1
+                        }}
+                    />
+                </Col>
+            </Row>
+            <Row className="mx-0 d-block d-md-none">
+                <Col className="p-0">
+                    <DataTable
+                        title="Liste des agents"
+                        data={data}
+                        columns={columnsBase}
+                        actions={[
+                            {
+                                icon: 'casino',
+                                tooltip: 'Tester',
+                                onClick
+                            }
+                        ]}
+                        options={{
+                            actionsColumnIndex: -1,
+                            search: false
                         }}
                     />
                 </Col>
