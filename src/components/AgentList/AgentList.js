@@ -39,7 +39,7 @@ const columnsBase = [
                     </Tooltip>
                 }
             >
-                <span>{rowData.name.substring(0, 4)}</span>
+                <span>AG-{rowData.name.substring(0, 4)}</span>
             </OverlayTrigger>
         )
     },
@@ -49,7 +49,18 @@ const columnsBase = [
 
 const columns = [
     {...nameColumn,
-        'render': rowData => rowData.name.substring(0, 4)
+        'render': rowData => (
+            <OverlayTrigger
+                placement='top'
+                overlay={
+                    <Tooltip>
+                        {rowData.name}
+                    </Tooltip>
+                }
+            >
+                <span>AG-{rowData.name.substring(0, 4)}</span>
+            </OverlayTrigger>
+        )
     },
     {...winningColumn},
     {

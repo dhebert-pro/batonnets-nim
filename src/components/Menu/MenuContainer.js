@@ -12,7 +12,6 @@ const MenuContainer = () => {
     const onEmptyDatabase = event => {
         event.preventDefault();
         launchAction(dispatch, deleteGenerationList()).then(() => {
-            console.log('OK');
             launchAction(dispatch, deleteAgentList()).then(() => {
                 showSuccess(dispatch, 'La base a été vidée');
                 launchAction(dispatch, fetchGenerationList());
