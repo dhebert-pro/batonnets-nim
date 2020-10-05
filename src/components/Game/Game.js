@@ -85,7 +85,7 @@ const StickTile = styled(Image)(({state, position}) => {
         ${changeColor};
         animation-fill-mode: forwards;
         height: 40%;
-        top: 5%;
+        top: 10%;
         left: ${5 * position}%;
         margin: auto;
         cursor: ${pointer};
@@ -102,9 +102,16 @@ const GameTable = styled.div`
     position: absolute;
 `;
 
+const Info = styled.div`
+    width: 100%;
+    text-align: center;   
+    position: absolute;
+`;
+
 const Game = ({ sticks, onSelectStick, onPlay }) => (
     <GameContent>
         <GameTable>
+            <Info>Bâtons restants : {sticks.filter(stick => !!stick).length}</Info>
             {
                 sticks.map((stick, index) => (
                     <StickTile onClick={stick !== 0 ? onSelectStick(index) : null} state={stick} position={index} key={index} id={`stick${index}`} src={Stick} />

@@ -17,6 +17,7 @@ const AlertMessageContainer = () => {
 
     useEffect(() => {
         if (control.message) {
+            if (show) closeAlert();
             setShow(true);
             const timeout = setTimeout(closeAlert, 10000);
             setAlertTimeout(timeout);

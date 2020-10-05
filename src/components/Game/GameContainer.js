@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Game from './Game';
+import { showError } from 'src/util/alertUtil';
 
 const startSticksPosition = Array(20).fill(1);
 
 const GameContainer = () => {
     
     const [sticks, setSticks] = useState(startSticksPosition);
+
+    const dispatch = useDispatch();
 
     const onSelectStick = position => event => {
         event.preventDefault();
@@ -21,8 +25,15 @@ const GameContainer = () => {
 
     const onPlay = event => {
         event.preventDefault();
-        const newSticks = sticks.map(stick => stick === 2 ? 0 : stick);
-        setSticks(newSticks);
+        const nbSticks = sticks.filter(stick => stick === 2).length;
+        if (nbSticks > 3) {
+            showError(dispatch, 'Vous ne pouvez pas sélectionner plus de 3 bâtons');
+        } else if (nbSticks === 0) {
+            showError(dispatch, 'Vous devez sélectionner au moins 1 bâton');
+        } else {
+            const newSticks = sticks.map(stick => stick === 2 ? 0 : stick);
+            setSticks(newSticks);
+        }
     };
 
     return (
