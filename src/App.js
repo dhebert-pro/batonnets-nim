@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
-import AlertMessage from 'src/AlertMessage';
-import GenerationList from 'src/GenerationList';
-import AgentList from 'src/AgentList';
+import AlertMessage from 'src/components/AlertMessage';
+import GenerationList from 'src/components/GenerationList';
+import AgentList from 'src/components/AgentList';
 import styled from 'styled-components';
 import Sticks from 'src/assets/sticks.svg';
 import Container from 'react-bootstrap/Container';
