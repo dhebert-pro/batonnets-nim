@@ -1,10 +1,11 @@
-import { createGlobalStyle } from 'styled-components';
+import React from 'react';
+import { Global, css } from '@emotion/core';
 
 const fontDirectory = '/src/assets/fonts/';
 const moonFont = 'font-family: \'Moon Regular\', arial, sans-serif';
 const letterSpacingSmall = 'letter-spacing: .1rem !important';
 
-const GlobalStyle = createGlobalStyle`
+const style = `
     @font-face {
         font-family: 'Semi Coder';
         src: url('${fontDirectory}Semi-Coder-Regular.otf');
@@ -54,5 +55,9 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
     }
 `;
+
+const GlobalStyle = () => (
+    <Global styles={style} />
+);
 
 export default GlobalStyle;

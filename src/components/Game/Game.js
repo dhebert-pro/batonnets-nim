@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Stick from 'src/assets/stick.png';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
-import styled, { keyframes, css } from 'styled-components';
+import { keyframes, css } from '@emotion/core';
+import styled from '@emotion/styled';
 
 const ValidateButton = styled(Button)`
     top: 60%;
@@ -45,11 +46,11 @@ const changeColorUnselectKF = keyframes`
 `;
 
 const changeColorSelect = css`
-    animation: ${changeColorSelectKF} 0.3s linear 1;
+    animation: ${changeColorSelectKF} 0.1s linear 1;
 `;
 
 const changeColorUnselect = css`
-    animation: ${changeColorUnselectKF} 0.3s linear 1;
+    animation: ${changeColorUnselectKF} 0.1s linear 1;
 `;
 
 const StickTile = styled(Image)`
@@ -89,7 +90,7 @@ const Game = ({ sticks, onSelectStick }) => (
                     stick && <StickTile onClick={onSelectStick(index)} state={stick} position={index} key={index} id={`stick${index}`} src={Stick} />
                 ))
             }
-            <ValidateButton variant="primary" onClick={onSelectStick(3)}>Valider</ValidateButton>
+            <ValidateButton variant="primary">Valider</ValidateButton>
         </GameTable>
     </GameContent>
 );

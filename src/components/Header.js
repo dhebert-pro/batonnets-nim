@@ -1,6 +1,6 @@
 import React from 'react';
 import Sticks from 'src/assets/sticks.svg';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
