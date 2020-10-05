@@ -78,7 +78,7 @@ const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, o
                             />
                         </Form.Group>
                         <Button className="m-2" variant="primary" type="submit">
-                                Simuler
+                                    Simuler
                         </Button>
                     </Form>
                 </Col>
