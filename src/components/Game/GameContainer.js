@@ -9,19 +9,24 @@ const GameContainer = () => {
 
     const onSelectStick = position => event => {
         event.preventDefault();
-        console.log('EVENT');
         const newSticks = [...sticks];
         const oldPosition = newSticks[position];
         if (oldPosition === 1 || oldPosition === 3) {
             newSticks[position] = 2;
-        } else {
+        } else if (oldPosition === 2) {
             newSticks[position] = 3;
         }
         setSticks(newSticks);
     };
 
+    const onPlay = event => {
+        event.preventDefault();
+        const newSticks = sticks.map(stick => stick === 2 ? 0 : stick);
+        setSticks(newSticks);
+    };
+
     return (
-        <Game sticks={sticks} onSelectStick={onSelectStick} />
+        <Game sticks={sticks} onSelectStick={onSelectStick} onPlay={onPlay} />
     );
 };
 

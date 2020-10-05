@@ -45,6 +45,18 @@ const changeColorUnselectKF = keyframes`
     }
 `;
 
+const changeColorVanishKF = keyframes`
+    0% {
+        filter: opacity(100%);
+    }
+    50% {
+        filter: opacity(50%);
+    }
+    100% {
+        filter: opacity(0%);
+    }
+`;
+
 const changeColorSelect = css`
     animation: ${changeColorSelectKF} 0.1s linear 1;
 `;
@@ -53,24 +65,32 @@ const changeColorUnselect = css`
     animation: ${changeColorUnselectKF} 0.1s linear 1;
 `;
 
-const StickTile = styled(Image)`
-    position: absolute;
-    ${props => {
-        if (props.state === 2) {
-            return changeColorSelect;
-        } else if (props.state === 3) {
-            return changeColorUnselect;
-        } else {
-            return '';
-        }
-    }};
-    animation-fill-mode: forwards;
-    height: 40%;
-    top: 5%;
-    left: ${props => 5 * props.position}%;
-    margin: auto;
-    cursor: pointer;
+const changeColorVanish = css`
+    animation: ${changeColorVanishKF} 0.1s linear 1;
 `;
+
+const StickTile = styled(Image)(({state, position}) => {
+    let changeColor = '';
+    let pointer = 'pointer';
+    if (state === 2) {
+        changeColor = changeColorSelect;
+    } else if (state === 3) {
+        changeColor = changeColorUnselect;
+    } else if (state === 0) {
+        changeColor = changeColorVanish;
+        pointer = 'default';
+    }
+    return css`
+        position: absolute;
+        ${changeColor};
+        animation-fill-mode: forwards;
+        height: 40%;
+        top: 5%;
+        left: ${5 * position}%;
+        margin: auto;
+        cursor: ${pointer};
+    `;
+});
 
 const GameTable = styled.div`
     max-width: 800px;
@@ -82,15 +102,15 @@ const GameTable = styled.div`
     position: absolute;
 `;
 
-const Game = ({ sticks, onSelectStick }) => (
+const Game = ({ sticks, onSelectStick, onPlay }) => (
     <GameContent>
         <GameTable>
             {
                 sticks.map((stick, index) => (
-                    stick && <StickTile onClick={onSelectStick(index)} state={stick} position={index} key={index} id={`stick${index}`} src={Stick} />
+                    <StickTile onClick={stick !== 0 ? onSelectStick(index) : null} state={stick} position={index} key={index} id={`stick${index}`} src={Stick} />
                 ))
             }
-            <ValidateButton variant="primary">Valider</ValidateButton>
+            <ValidateButton variant="primary" onClick={onPlay}>Valider</ValidateButton>
         </GameTable>
     </GameContent>
 );
@@ -98,7 +118,7 @@ const Game = ({ sticks, onSelectStick }) => (
 Game.propTypes = {
     sticks: PropTypes.array.isRequired,
     onSelectStick: PropTypes.func.isRequired,
-    onValidate: PropTypes.func.isRequired
+    onPlay: PropTypes.func.isRequired
 };
 
 export default Game;
