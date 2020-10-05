@@ -16,13 +16,15 @@ const nameColumn = {
 
 const generationColumn = {
     'title': 'Génération',
-    'field': 'generation'
+    'field': 'generation',
+    'type': 'numeric'
 };
 
 const winningColumn = {
     'title': 'Victoires',
     'field': 'winning',
-    'defaultSort': 'desc'
+    'defaultSort': 'desc',
+    'type': 'numeric'
 };
 
 const columnsBase = [
@@ -66,15 +68,18 @@ const columns = [
     {...winningColumn},
     {
         'title': 'Défaites',
-        'field': 'losing'
+        'field': 'losing',
+        'type': 'numeric'
     },
     {
         'title': 'Neurones',
-        'render': rowData => rowData.neurons.map(layer => layer.length).reduce((a, b) => a + b, 0)
+        'render': rowData => rowData.neurons.map(layer => layer.length).reduce((a, b) => a + b, 0),
+        'type': 'numeric'
     },
     {
         'title': 'Couches',
-        'field': 'neurons.length'
+        'field': 'neurons.length',
+        'type': 'numeric'
     },
     {...generationColumn}
 ];
@@ -82,7 +87,7 @@ const columns = [
 const AgentList = ({ data }) => {
     return (
         <Container>
-            <Row className="mx-0 d-none d-md-block">
+            <Row className="mx-0 d-none d-lg-block">
                 <Col className="p-0">
                     <DataTable
                         title="Liste des agents"
@@ -105,7 +110,7 @@ const AgentList = ({ data }) => {
                     />
                 </Col>
             </Row>
-            <Row className="mx-0 d-block d-md-none">
+            <Row className="mx-0 d-block d-lg-none">
                 <Col className="p-0">
                     <DataTable
                         title="Liste des agents"

@@ -54,11 +54,13 @@ const columns = [
     },
     {
         'title': 'Victoires',
-        'field': 'winner.winning'
+        'field': 'winner.winning',
+        'type': 'numeric'
     },
     {
         'title': 'Défaites',
-        'field': 'winner.losing'
+        'field': 'winner.losing',
+        'type': 'numeric'
     }
 ];
 
