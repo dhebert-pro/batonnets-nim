@@ -98,6 +98,7 @@ const AgentList = ({ data }) => {
                                 icon: 'casino',
                                 tooltip: 'Tester',
                                 link: '/play',
+                                id: ['_id'],
                                 onClick: () => null
                             }
                         ]}
@@ -121,6 +122,7 @@ const AgentList = ({ data }) => {
                                 icon: 'casino',
                                 tooltip: 'Tester',
                                 link: '/play',
+                                id: ['_id'],
                                 onClick: () => null
                             }
                         ]}

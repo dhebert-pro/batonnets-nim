@@ -97,6 +97,7 @@ const GenerationList = ({ data, nbGenerations, onChangeNbGenerations, onGenerate
                                 icon: 'casino',
                                 tooltip: 'Tester',
                                 link: '/play',
+                                id: ['winner','_id'],
                                 onClick: () => null
                             }
                         ]}
@@ -120,6 +121,7 @@ const GenerationList = ({ data, nbGenerations, onChangeNbGenerations, onGenerate
                                 icon: 'casino',
                                 tooltip: 'Tester',
                                 link: '/play',
+                                id: ['winner','_id'],
                                 onClick: () => null
                             }
                         ]}
