@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DataTable from 'src/components/DataTable';
+import ActionLink from 'src/components/DataTable/ActionLink';
 
 const nameColumn = {
     'title': 'Nom',
@@ -78,7 +79,7 @@ const columns = [
     {...generationColumn}
 ];
 
-const AgentList = ({ data, onClick }) => {
+const AgentList = ({ data }) => {
     return (
         <Container>
             <Row className="mx-0 d-none d-md-block">
@@ -91,9 +92,13 @@ const AgentList = ({ data, onClick }) => {
                             {
                                 icon: 'casino',
                                 tooltip: 'Tester',
-                                onClick
+                                link: '/play',
+                                onClick: () => null
                             }
                         ]}
+                        components={{
+                            Action: ActionLink,
+                        }}
                         options={{
                             actionsColumnIndex: -1
                         }}
@@ -110,9 +115,13 @@ const AgentList = ({ data, onClick }) => {
                             {
                                 icon: 'casino',
                                 tooltip: 'Tester',
-                                onClick
+                                link: '/play',
+                                onClick: () => null
                             }
                         ]}
+                        components={{
+                            Action: ActionLink,
+                        }}
                         options={{
                             actionsColumnIndex: -1,
                             search: false
@@ -125,8 +134,7 @@ const AgentList = ({ data, onClick }) => {
 };
 
 AgentList.propTypes = {
-    data: PropTypes.array.isRequired,
-    onClick: PropTypes.func.isRequired
+    data: PropTypes.array.isRequired
 };
 
 export default AgentList;

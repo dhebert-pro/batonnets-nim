@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DataTable from 'src/components/DataTable';
+import ActionLink from 'src/components/DataTable/ActionLink';
 
 const generationColumn = {
     'title': 'Numéro',
@@ -61,7 +62,7 @@ const columns = [
     }
 ];
 
-const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, onGenerate }) => {
+const GenerationList = ({ data, nbGenerations, onChangeNbGenerations, onGenerate }) => {
     return (
         <Container>
             <Row className="mb-4 mx-0">
@@ -93,9 +94,13 @@ const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, o
                             {
                                 icon: 'casino',
                                 tooltip: 'Tester',
-                                onClick
+                                link: '/play',
+                                onClick: () => null
                             }
                         ]}
+                        components={{
+                            Action: ActionLink,
+                        }}
                         options={{
                             actionsColumnIndex: -1
                         }}
@@ -112,9 +117,13 @@ const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, o
                             {
                                 icon: 'casino',
                                 tooltip: 'Tester',
-                                onClick
+                                link: '/play',
+                                onClick: () => null
                             }
                         ]}
+                        components={{
+                            Action: ActionLink,
+                        }}
                         options={{
                             actionsColumnIndex: -1,
                             search: false
@@ -128,7 +137,6 @@ const GenerationList = ({ data, onClick, nbGenerations, onChangeNbGenerations, o
 
 GenerationList.propTypes = {
     data: PropTypes.array.isRequired,
-    onClick: PropTypes.func.isRequired,
     nbGenerations: PropTypes.string.isRequired,
     onChangeNbGenerations: PropTypes.func.isRequired,
     onGenerate: PropTypes.func.isRequired

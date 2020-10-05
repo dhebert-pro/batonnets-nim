@@ -24,12 +24,13 @@ const localization = {
     }
 };
 
-const DataTable = ({title, data, columns, actions, options}) => (
+const DataTable = ({title, data, columns, actions, options, components}) => (
     <MaterialTable
         title={title}
         data={data}
         columns={columns}
         localization={localization}
+        components={components}
         actions={actions}
         options={options}
     />
@@ -40,7 +41,8 @@ DataTable.propTypes = {
     data: PropTypes.array.isRequired,
     columns: PropTypes.array.isRequired,
     actions: PropTypes.array,
-    options: PropTypes.object
+    options: PropTypes.object,
+    components: PropTypes.object
 };
 
 export default DataTable;
