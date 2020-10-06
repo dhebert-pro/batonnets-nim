@@ -1,9 +1,22 @@
-import { FETCH_AGENT_LIST, DELETE_AGENT_LIST } from 'src/store/actions/types';
+import { FETCH_AGENT_LIST, FETCH_AGENT, DELETE_AGENT_LIST } from 'src/store/actions/types';
 
-export default function agent(state = [], action) {
+const initialState = {
+    agentList: [],
+    agent: {}
+};
+
+export default function agent(state = initialState, action) {
     switch (action.type) {
         case FETCH_AGENT_LIST:
-            return action.agentList;
+            return {
+                ...state,
+                agentList: action.agentList
+            };
+        case FETCH_AGENT:
+            return {
+                ...state,
+                agent: action.agent
+            };
         case DELETE_AGENT_LIST:
             return state;
         default:

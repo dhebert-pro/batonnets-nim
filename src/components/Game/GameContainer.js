@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Game from './Game';
 import { showError } from 'src/util/alertUtil';
 import { showModal } from 'src/util/modalUtil';
+import { useParams } from 'react-router-dom';
+import { fetchAgent } from 'src/store/actions/AgentAction';
+import { launchAction } from 'src/util/reduxUtil';
 
 const startSticksPosition = Array(20).fill(1);
 
@@ -12,7 +15,18 @@ const GameContainer = () => {
 
     const dispatch = useDispatch();
 
+    const { agentId } = useParams();
+
+    const agent = useSelector(state => {
+        return state.agent.agent;
+    });
+
     useEffect(() => {
+        launchAction(dispatch, fetchAgent(agentId));
+    }, []);
+
+    useEffect(() => {
+        console.log('AGENT', agent);
         const nbSticks = sticks.filter(stick => !!stick).length;
         if (nbSticks === 0) {
             showModal(dispatch, 'La partie est terminée');

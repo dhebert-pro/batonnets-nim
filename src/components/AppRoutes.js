@@ -12,7 +12,7 @@ const AppRoutes = () => (
         <Route path="/agents">
             <AgentList />
         </Route>
-        <Route path="/play">
+        <Route path="/play/:agentId">
             <Game />
         </Route>
         <Route path="/">

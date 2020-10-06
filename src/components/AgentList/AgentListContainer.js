@@ -7,8 +7,9 @@ import { launchAction } from 'src/util/reduxUtil';
 const AgentListContainer = () => {
 
     const agentList = useSelector(state => {
-        return state.agent;
+        return state.agent.agentList;
     });
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
