@@ -4,10 +4,6 @@ import AgentList from './AgentList';
 import { fetchAgentList } from 'src/store/actions/AgentAction';
 import { launchAction } from 'src/util/reduxUtil';
 
-const play = (event, row) => {
-    console.log('PLAY', event.target, row);
-};
-
 const AgentListContainer = () => {
 
     const agentList = useSelector(state => {
@@ -22,7 +18,6 @@ const AgentListContainer = () => {
     return (
         <AgentList
             data={agentList}
-            onClick={play}
         />
     );
 };

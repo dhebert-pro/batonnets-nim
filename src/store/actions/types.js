@@ -4,3 +4,4 @@ export const FETCH_AGENT_LIST = 'FETCH_AGENT_LIST';
 export const DELETE_AGENT_LIST = 'DELETE_AGENT_LIST';
 export const ADD_GAME = 'ADD_GAME';
 export const SET_ALERT = 'SET_ALERT';
+export const SET_MODAL = 'SET_MODAL';

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Game from './Game';
 import { showError } from 'src/util/alertUtil';
+import { showModal } from 'src/util/modalUtil';
 
 const startSticksPosition = Array(20).fill(1);
 
@@ -10,6 +11,13 @@ const GameContainer = () => {
     const [sticks, setSticks] = useState(startSticksPosition);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const nbSticks = sticks.filter(stick => !!stick).length;
+        if (nbSticks === 0) {
+            showModal(dispatch, 'La partie est terminée');
+        }
+    }, [sticks]);
 
     const onSelectStick = position => event => {
         event.preventDefault();

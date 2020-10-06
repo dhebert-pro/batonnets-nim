@@ -6,8 +6,8 @@ const AlertMessageContainer = () => {
     const [show, setShow] = useState(false);
     const [alertTimeout, setAlertTimeout] = useState();
 
-    const control = useSelector(state => {
-        return state.control;
+    const alert = useSelector(state => {
+        return state.control.alert;
     });
 
     const closeAlert = () => {
@@ -16,16 +16,16 @@ const AlertMessageContainer = () => {
     };
 
     useEffect(() => {
-        if (control.message) {
+        if (alert && alert.message) {
             if (show) closeAlert();
             setShow(true);
             const timeout = setTimeout(closeAlert, 10000);
             setAlertTimeout(timeout);
         }
-    }, [control]);
+    }, [alert]);
 
     return (
-        <AlertMessage show={show} onClose={closeAlert} message={control} />
+        <AlertMessage show={show} onClose={closeAlert} message={alert} />
     );
 };
 

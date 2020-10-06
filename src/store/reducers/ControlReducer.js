@@ -1,9 +1,27 @@
-import { SET_ALERT } from 'src/store/actions/types';
+import { SET_ALERT, SET_MODAL } from 'src/store/actions/types';
 
-export default function control(state = {}, action) {
+const initialState = {
+    alert: {
+        message: '',
+        type: ''
+    },
+    modal: {
+        message: ''
+    }
+};
+
+export default function control(state = initialState, action) {
     switch (action.type) {
         case SET_ALERT:
-            return action.payload;
+            return {
+                ...state,
+                alert : action.payload
+            };
+        case SET_MODAL:
+            return {
+                ...state,
+                modal : action.payload
+            };
         default:
             return state;
     }

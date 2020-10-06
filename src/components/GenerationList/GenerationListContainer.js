@@ -6,10 +6,6 @@ import { addGame } from 'src/store/actions/GameAction';
 import { launchAction } from 'src/util/reduxUtil';
 import { showSuccess, showWarning } from 'src/util/alertUtil';
 
-const play = (event, row) => {
-    console.log('PLAY', event.target, row);
-};
-
 const GenerationListContainer = () => {
     const [nbGenerations, setNbGenerations] = useState('');
 
@@ -56,7 +52,6 @@ const GenerationListContainer = () => {
     return (
         <GenerationList 
             data={generationList}
-            onClick={play}
             nbGenerations={nbGenerations}
             onChangeNbGenerations={onChangeNbGenerations}
             onGenerate={onGenerate}

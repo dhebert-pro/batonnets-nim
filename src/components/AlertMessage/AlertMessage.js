@@ -9,7 +9,10 @@ const AlertMessage = ({show, onClose, message}) => (
 AlertMessage.propTypes = {
     show: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    message: PropTypes.object
+    message: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired
+    })
 };
 
 export default AlertMessage;

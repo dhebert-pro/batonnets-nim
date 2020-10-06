@@ -1,5 +1,6 @@
 import React from 'react';
 import AlertMessage from 'src/components/AlertMessage';
+import SimpleModal from 'src/components/Modal/SimpleModal';
 import Header from 'src/components/Header';
 import Menu from 'src/components/Menu';
 import Footer from 'src/components/Footer';
@@ -11,6 +12,7 @@ const App = () => (
         <Header />
         <Menu />
         <AlertMessage />
+        <SimpleModal />
         <Body />
         <Footer />
     </Container>
