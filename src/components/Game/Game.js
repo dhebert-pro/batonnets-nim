@@ -6,6 +6,41 @@ import Button from 'react-bootstrap/Button';
 import { keyframes, css } from '@emotion/core';
 import styled from '@emotion/styled';
 
+const PlayerName = styled.div(({selected}) => {
+    let selectedStyle = '';
+    if (selected) {
+        selectedStyle = `
+            font-weight: 600;
+            color: red;
+        `;
+    }
+    return `
+        top: 60%;
+        left: 20%;
+        margin: auto;
+        position: absolute;
+        ${selectedStyle}
+    `;
+});
+
+const CPUName = styled.div(({selected}) => {
+    let selectedStyle = '';
+    if (selected) {
+        selectedStyle = `
+            font-weight: 600;
+            color: red;
+        `;
+    }
+    return `
+        top: 60%;
+        right: 20%;
+        margin: auto;
+        position: absolute;
+        text-align: right;
+        ${selectedStyle}
+    `;
+});
+
 const ValidateButton = styled(Button)`
     top: 60%;
     left: 0;
@@ -108,7 +143,7 @@ const Info = styled.div`
     position: absolute;
 `;
 
-const Game = ({ sticks, onSelectStick, onPlay }) => (
+const Game = ({ sticks, onSelectStick, onPlay, agent, isPlayerTurn }) => (
     <GameContent>
         <GameTable>
             <Info>Bâtons restants : {sticks.filter(stick => !!stick).length}</Info>
@@ -117,15 +152,21 @@ const Game = ({ sticks, onSelectStick, onPlay }) => (
                     <StickTile onClick={stick !== 0 ? onSelectStick(index) : null} state={stick} position={index} key={index} id={`stick${index}`} src={Stick} />
                 ))
             }
+            <PlayerName selected={isPlayerTurn}>Joueur</PlayerName>
             <ValidateButton variant="primary" onClick={onPlay}>Valider</ValidateButton>
+            <CPUName selected={!isPlayerTurn}>{ agent.name ? `AG-${agent.name.substring(0,4)}` : 'CPU' }</CPUName>
         </GameTable>
     </GameContent>
 );
 
 Game.propTypes = {
+    isPlayerTurn: PropTypes.bool.isRequired,
     sticks: PropTypes.array.isRequired,
     onSelectStick: PropTypes.func.isRequired,
-    onPlay: PropTypes.func.isRequired
+    onPlay: PropTypes.func.isRequired,
+    agent: PropTypes.shape({
+        name: PropTypes.string
+    }).isRequired
 };
 
 export default Game;

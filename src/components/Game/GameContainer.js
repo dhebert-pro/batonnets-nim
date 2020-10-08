@@ -12,6 +12,7 @@ const startSticksPosition = Array(20).fill(1);
 const GameContainer = () => {
     
     const [sticks, setSticks] = useState(startSticksPosition);
+    const [isPlayerTurn, setPlayerTurn] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ const GameContainer = () => {
         console.log('AGENT', agent);
         const nbSticks = sticks.filter(stick => !!stick).length;
         if (nbSticks === 0) {
-            showModal(dispatch, 'La partie est terminée');
+            showModal(dispatch, isPlayerTurn ? 'Vous avez perdu' : 'Vous avez gagné');
         }
     }, [sticks]);
 
@@ -55,11 +56,18 @@ const GameContainer = () => {
         } else {
             const newSticks = sticks.map(stick => stick === 2 ? 0 : stick);
             setSticks(newSticks);
+            setPlayerTurn(!isPlayerTurn);
         }
     };
 
     return (
-        <Game sticks={sticks} onSelectStick={onSelectStick} onPlay={onPlay} />
+        <Game 
+            agent={agent}
+            sticks={sticks} 
+            onSelectStick={onSelectStick} 
+            onPlay={onPlay}
+            isPlayerTurn={isPlayerTurn}
+        />
     );
 };
 
