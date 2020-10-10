@@ -92,7 +92,7 @@ const GenerationList = ({ data, nbGenerations, nbGenerationsCreated, onChangeNbG
             </Row>
             <Row className="mb-4">
                 <Col xs={{ span: 8, offset: 2 }}>
-                    <ProgressBar striped now={percent} label={`${nbGenerationsCreated} / ${nbGenerations}`} />
+                    <ProgressBar animated now={percent} label={`${nbGenerationsCreated} / ${nbGenerations}`} />
                 </Col>
             </Row>
             <Row className="mx-0 d-none d-md-block">
