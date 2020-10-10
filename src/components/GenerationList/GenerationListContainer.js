@@ -40,14 +40,18 @@ const GenerationListContainer = () => {
             !isNaN(nbGenerations) && 
             Number.isInteger(parseInt(nbGenerations))
         ) {
-            let promise = game => {
+            let promise;
+            for (let i = 0; i < nbGenerations; i++) {
+                if (promise) {
+                    promise = promise.then(() => launchAction(dispatch, addGame()));
+                } else {
+                    promise = launchAction(dispatch, addGame());
+                }
+            }
+            promise.then(game => {
                 showSuccess(dispatch, `${game.payload.count} générations dans la base`);
                 launchAction(dispatch, fetchGenerationList());
-            };
-            /*for (let i = 0; i < nbGenerations; i++) {
-                promise = launchAction(dispatch, addGame(), promise);
-            }*/
-            launchAction(dispatch, addGame(), launchAction(dispatch, addGame(), launchAction(dispatch, addGame()))).then(promise);
+            });
         } else {
             showWarning(dispatch, 'Vous devez renseigner un nombre');
         }
