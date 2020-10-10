@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DataTable from 'src/components/DataTable';
@@ -64,7 +65,10 @@ const columns = [
     }
 ];
 
-const GenerationList = ({ data, nbGenerations, onChangeNbGenerations, onGenerate }) => {
+const GenerationList = ({ data, nbGenerations, nbGenerationsCreated, onChangeNbGenerations, onGenerate }) => {
+
+    const percent = 100 * nbGenerationsCreated / nbGenerations || 0;
+
     return (
         <Container>
             <Row className="mb-4 mx-0">
@@ -81,9 +85,14 @@ const GenerationList = ({ data, nbGenerations, onChangeNbGenerations, onGenerate
                             />
                         </Form.Group>
                         <Button className="m-2" variant="primary" type="submit">
-                                    Simuler
+                            Simuler
                         </Button>
                     </Form>
+                </Col>
+            </Row>
+            <Row className="mb-4">
+                <Col xs={{ span: 8, offset: 2 }}>
+                    <ProgressBar striped now={percent} label={`${nbGenerationsCreated} / ${nbGenerations}`} />
                 </Col>
             </Row>
             <Row className="mx-0 d-none d-md-block">
@@ -142,6 +151,7 @@ const GenerationList = ({ data, nbGenerations, onChangeNbGenerations, onGenerate
 GenerationList.propTypes = {
     data: PropTypes.array.isRequired,
     nbGenerations: PropTypes.string.isRequired,
+    nbGenerationsCreated: PropTypes.number.isRequired,
     onChangeNbGenerations: PropTypes.func.isRequired,
     onGenerate: PropTypes.func.isRequired
 };
