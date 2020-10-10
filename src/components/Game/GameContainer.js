@@ -5,12 +5,16 @@ import { showError } from 'src/util/alertUtil';
 import { showModal } from 'src/util/modalUtil';
 import { useParams } from 'react-router-dom';
 import { fetchAgent } from 'src/store/actions/AgentAction';
+import { fetchBestMove } from 'src/store/actions/MoveAction';
 import { launchAction } from 'src/util/reduxUtil';
+import { getNbNotNull } from 'src/util/arrayUtil';
+
+const REMOVE_STICKS = 'REMOVE_STICKS';
 
 const startSticksPosition = Array(20).fill(1);
 
 const GameContainer = () => {
-    
+
     const [sticks, setSticks] = useState(startSticksPosition);
     const [isPlayerTurn, setPlayerTurn] = useState(false);
 
@@ -22,17 +26,9 @@ const GameContainer = () => {
         return state.agent.agent;
     });
 
-    useEffect(() => {
-        launchAction(dispatch, fetchAgent(agentId));
-    }, []);
-
-    useEffect(() => {
-        console.log('AGENT', agent);
-        const nbSticks = sticks.filter(stick => !!stick).length;
-        if (nbSticks === 0) {
-            showModal(dispatch, isPlayerTurn ? 'Vous avez perdu' : 'Vous avez gagné');
-        }
-    }, [sticks]);
+    let bestMove = useSelector(state => {
+        return state.move.bestMove;
+    });
 
     const onSelectStick = position => event => {
         event.preventDefault();
@@ -59,6 +55,49 @@ const GameContainer = () => {
             setPlayerTurn(!isPlayerTurn);
         }
     };
+
+    const removeSticks = nbSticks => {
+        let remainingSticks = nbSticks;
+        const newSticks = sticks.map(stick => {
+            if (remainingSticks && stick !== 0) {
+                remainingSticks--;
+                return 0;
+            } else {
+                return stick;
+            }
+        });
+        setSticks(newSticks);
+        setPlayerTurn(!isPlayerTurn);
+    };
+
+    const playAction = (name, params) => {
+        if (name === REMOVE_STICKS) {
+            removeSticks(params[0]);
+        }
+    };
+
+    useEffect(() => {
+        launchAction(dispatch, fetchAgent(agentId));
+        bestMove = undefined;
+    }, []);
+
+    useEffect(() => {
+        if (bestMove) {
+            playAction(bestMove.name, bestMove.params);
+        }
+    }, [bestMove]);
+
+    useEffect(() => {
+        if (!isPlayerTurn && getNbNotNull(sticks) !== 0) {
+            launchAction(dispatch, fetchBestMove(agentId, [getNbNotNull(sticks)]));
+        }
+    }, [isPlayerTurn]);
+
+    useEffect(() => {
+        if (getNbNotNull(sticks) === 0) {
+            showModal(dispatch, isPlayerTurn ? 'Vous avez gagné' : 'Vous avez perdu');
+        }
+    }, [sticks]);
 
     return (
         <Game 
