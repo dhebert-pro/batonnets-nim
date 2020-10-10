@@ -9,12 +9,10 @@ export const addGameAction = payload => {
     };
 };
 
-export const addGame = nbGenerations => dispatch => {
+export const addGame = () => dispatch => {
 
     return axios
-        .post('/game', {
-            nbGenerations
-        })
+        .post('/game')
         .then(response => {
             return dispatch(addGameAction(response.data));
         }).catch(err => {
