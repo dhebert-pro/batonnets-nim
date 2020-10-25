@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import AlertMessageContainer from '../../components/AlertMessage';
 import AlertMessage from '../../components/AlertMessage/AlertMessage';
 import configureStore from 'redux-mock-store';
@@ -18,6 +18,15 @@ const DEFAULT_STATE = {
         alert: {
             message: 'MESSAGE',
             type: 'TYPE'
+        }
+    }
+};
+
+const DEFAULT_STATE_2 = {
+    control: {
+        alert: {
+            message: 'MESSAGE_2',
+            type: 'TYPE_2'
         }
     }
 };
@@ -43,8 +52,9 @@ const initState = state => {
 };
 
 describe('AlertMessage', () => {
-    it('should be rendered with correct props', () => {
 
+    it('should be shown if message is not empty', () => {
+        
         initState(DEFAULT_STATE);
 
         const alertMessage = (
@@ -54,7 +64,7 @@ describe('AlertMessage', () => {
         const alertMessageComponent = result.find(AlertMessage);
         expect(alertMessageComponent).toHaveLength(1);
         const props = alertMessageComponent.props();
-        expect(props.show).toBeFalsy();
+        expect(props.show).toBeTruthy();
         expect(typeof props.onClose).toBe('function');
         const message = props.message;
         expect(message).toBeDefined();
@@ -62,18 +72,30 @@ describe('AlertMessage', () => {
         expect(message.message).toBe('MESSAGE');
     });
 
-    it('should be shown if message is not empty', () => {
+    it('should display good message if called twice', () => {
         
         initState(DEFAULT_STATE);
 
         const alertMessage = (
             <AlertMessageContainer />
         );
-        const result = mount(alertMessage);
-        const alertMessageComponent = result.find(AlertMessage);
+        const result = shallow(alertMessage);
+        let alertMessageComponent = result.find(AlertMessage);
         expect(alertMessageComponent).toHaveLength(1);
-        const props = alertMessageComponent.props();
+        let props = alertMessageComponent.props();
         expect(props.show).toBeTruthy();
+
+        initState(DEFAULT_STATE_2);
+        result.setProps({});
+        alertMessageComponent = result.find(AlertMessage);
+        expect(alertMessageComponent).toHaveLength(1);
+        props = alertMessageComponent.props();
+        expect(props.show).toBeTruthy();
+        const message = props.message;
+        expect(message).toBeDefined();
+        expect(message.type).toBe('TYPE_2');
+        expect(message.message).toBe('MESSAGE_2');
+
     });
 
     it('should close after timer', () => {
@@ -83,7 +105,7 @@ describe('AlertMessage', () => {
         const alertMessage = (
             <AlertMessageContainer />
         );
-        const result = mount(alertMessage);
+        const result = shallow(alertMessage);
         const alertMessageComponent = result.find(AlertMessage);
         expect(alertMessageComponent).toHaveLength(1);
         const props = alertMessageComponent.props();
@@ -99,7 +121,7 @@ describe('AlertMessage', () => {
         const alertMessage = (
             <AlertMessageContainer />
         );
-        const result = mount(alertMessage);
+        const result = shallow(alertMessage);
         const alertMessageComponent = result.find(AlertMessage);
         expect(alertMessageComponent).toHaveLength(1);
         const props = alertMessageComponent.props();
@@ -112,7 +134,7 @@ describe('AlertMessage', () => {
         const alertMessage = (
             <AlertMessageContainer />
         );
-        const result = mount(alertMessage);
+        const result = shallow(alertMessage);
         let alertMessageComponent = result.find(AlertMessage);
         expect(alertMessageComponent).toHaveLength(1);
         const props = alertMessageComponent.props();
