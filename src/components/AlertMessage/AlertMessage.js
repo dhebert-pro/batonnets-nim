@@ -10,8 +10,8 @@ AlertMessage.propTypes = {
     show: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     message: PropTypes.shape({
-        type: PropTypes.string.isRequired,
-        message: PropTypes.string.isRequired
+        type: PropTypes.string,
+        message: PropTypes.string
     })
 };
 
