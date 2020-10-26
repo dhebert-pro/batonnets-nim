@@ -9,7 +9,6 @@ import { act } from 'react-dom/test-utils';
 import Alert from 'react-bootstrap/Alert';
 
 jest.useFakeTimers();
-jest.setTimeout(30000);
 
 let store;
 
