@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AlertMessageContainer from '../../components/AlertMessage';
-import AlertMessage from '../../components/AlertMessage/AlertMessage';
+import AlertMessageContainer from 'src/components/AlertMessage';
+import AlertMessage from 'src/components/AlertMessage/AlertMessage';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as redux from 'react-redux';
@@ -144,6 +144,27 @@ describe('AlertMessage', () => {
         alertMessageComponent = result.find(AlertMessage);
         expect(alertMessageComponent.props().show).toBeFalsy();
         
+    });
+
+    it('should display bootstrap Alert', () => {
+        const onClose = jest.fn();
+        const message = {
+            type: 'TYPE',
+            message: 'MESSAGE'
+        };
+        const alertMessage = (
+            <AlertMessage show={true} onClose={onClose} message={message} />
+        );
+
+        const result = shallow(alertMessage);
+        let alertMessageComponent = result.find(Alert);
+        expect(alertMessageComponent).toHaveLength(1);
+        const props = alertMessageComponent.props();
+        expect(props.show).toBeTruthy();
+        expect(props.variant).toBe('TYPE');
+        alertMessageComponent.invoke('onClose')();
+        expect(onClose).toHaveBeenCalled();
+        expect(alertMessageComponent.text()).toBe('MESSAGE');
     });
 
 });

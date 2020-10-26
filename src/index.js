@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import 'core-js';
 import React from 'react';
 import {
