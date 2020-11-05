@@ -1,0 +1,1 @@
+export const getNbNotNull = array => array.filter(element => !!element).length;

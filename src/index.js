@@ -1,15 +1,41 @@
+/* istanbul ignore file */
+import 'core-js';
 import React from 'react';
+import {
+    BrowserRouter as Router,
+} from 'react-router-dom';
+import 'src/assets/styles/custom.scss';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import App from 'src/components/App';
 import * as serviceWorker from './serviceWorker';
+import rootReducer from 'src/store/reducers';
+import GlobalStyle from 'src/styles/GlobalStyle';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.headers.get['Accept'] = 'application/json';
+axios.defaults.headers.post['Accept'] = 'application/json';
+
+const middlewares = [thunkMiddleware];
+const middlewareEnhancer = applyMiddleware(...middlewares);
+
+const enhancers = [middlewareEnhancer];
+const composedEnhancers = composeWithDevTools(...enhancers);
+
+const store = createStore(rootReducer, {}, composedEnhancers);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+    <Provider store={store}>
+        <Router>
+            <GlobalStyle />
+            <App />
+        </Router>
+    </Provider>,
+    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

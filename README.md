@@ -1,5 +1,21 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## MongoDB moves :
+[
+  {
+    "name": "REMOVE_STICKS",
+    "params": [1]  
+  },
+  {
+    "name": "REMOVE_STICKS",
+    "params": [2]  
+  },
+  {
+    "name": "REMOVE_STICKS",
+    "params": [3]  
+  }
+]
+
 ## Available Scripts
 
 In the project directory, you can run:
